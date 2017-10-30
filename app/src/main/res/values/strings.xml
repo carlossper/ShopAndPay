@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Shop And Pay</string>
+    <string name="etName">Name</string>
+    <string name="etAddr">Address</string>
+    <string name="etNIF">NIF</string>
+    <string name="etUsername">Username</string>
+    <!-- Como fazer com as passes? -->
+</resources>
