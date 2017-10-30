@@ -1,1 +1,2 @@
 # ShopAndPay
+Mobile Computing assignment
