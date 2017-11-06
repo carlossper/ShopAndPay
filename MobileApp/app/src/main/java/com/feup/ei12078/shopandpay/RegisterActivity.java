@@ -295,7 +295,7 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-                                                Intent mainIntent = new Intent(getApplicationContext(), MainAreaActivity.class);
+                                                Intent mainIntent = new Intent(getApplicationContext(), BaseActivity.class);
 
                                                 mainIntent.putExtra("pk",pk);
                                                 mainIntent.putExtra("first_name",first_name);
@@ -397,7 +397,7 @@ public class RegisterActivity extends AppCompatActivity {
             showProgress(false);
 
             if (success) {
-                Intent mainIntent = new Intent(getApplicationContext(), MainAreaActivity.class);
+                Intent mainIntent = new Intent(getApplicationContext(), BaseActivity.class);
 
                 mainIntent.putExtra("pk",pk);
                 mainIntent.putExtra("first_name",first_name);

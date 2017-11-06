@@ -150,7 +150,7 @@ public class SplashActivity extends AppCompatActivity {
                     SplashActivity.this.finish();
                 }
                 else{
-                    Intent mainIntent = new Intent(SplashActivity.this, MainAreaActivity.class);
+                    Intent mainIntent = new Intent(SplashActivity.this, BaseActivity.class);
 
                     mainIntent.putExtra("pk",pk);
                     mainIntent.putExtra("first_name",first_name);
