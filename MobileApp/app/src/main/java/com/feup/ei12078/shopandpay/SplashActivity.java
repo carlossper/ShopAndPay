@@ -43,10 +43,10 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(icicle);
 
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.user_token), Context.MODE_PRIVATE);
-        //final String token = sharedPref.getString(getString(R.string.user_token), null);
+        final String token = sharedPref.getString(getString(R.string.user_token), null);
 
         //Log.d("TAG", "TOKEN: "+ token);
-        final String token = "9a9829f1061ffe8f1aafb7642be28c069bc1ae5f X";
+        //final String token = "9a9829f1061ffe8f1aafb7642be28c069bc1ae5f X";
 
         setContentView(R.layout.activity_splash);
 

@@ -9,7 +9,7 @@ import android.net.NetworkInfo;
  */
 
 public class AppUtils {
-    public static String baseUrl = "http://192.168.1.3:8000/"; //For local testing use your ipv4 address
+    public static String baseUrl = "http://172.30.7.86:8000/"; //For local testing use your ipv4 address
 
 
     public static boolean isInternetAvailable(Context mContext) {
