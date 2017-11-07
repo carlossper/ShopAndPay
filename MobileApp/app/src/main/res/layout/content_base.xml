@@ -107,15 +107,14 @@
                 android:layout_height="160dp"
                 android:layout_margin="4dp"
                 android:background="@color/colorlightOrange"
+                android:drawableTop="@mipmap/ic_launcher"
                 android:gravity="bottom|center"
                 android:paddingBottom="8dp"
                 android:paddingTop="40dp"
                 android:text="Scan Product"
                 android:textColor="@android:color/background_light"
                 android:textColorHighlight="@android:color/background_light"
-                android:textColorHint="@android:color/background_light"
-                android:drawableTop="@mipmap/ic_launcher"
-                />
+                android:textColorHint="@android:color/background_light" />
         </TableRow>
     </TableLayout>
 

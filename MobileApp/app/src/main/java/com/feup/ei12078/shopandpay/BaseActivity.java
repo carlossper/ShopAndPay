@@ -1,10 +1,16 @@
 package com.feup.ei12078.shopandpay;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
+import com.feup.ei12078.shopandpay.barcode.BarcodeCaptureActivity;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -14,6 +20,23 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Button mCameraButton = (Button) findViewById(R.id.base_scan_button);
+        mCameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cameraRedirect();
+            }
+        });
+
+        Button mProductsButton = (Button) findViewById(R.id.base_product_button);
+        mProductsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                productRedirect();
+            }
+        });
+
 /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -24,6 +47,21 @@ public class BaseActivity extends AppCompatActivity {
             }
         });
 */
+    }
+
+    private void cameraRedirect(){
+        Log.i("TAG","Camera button clicked");
+        Intent mainIntent = new Intent(this, BarcodeCaptureActivity.class);
+        this.startActivity(mainIntent);
+        this.finish();
+    }
+
+    private void productRedirect(){
+        Log.i("TAG","Product button clicked");
+        Intent mainIntent = new Intent(this, ProductActivity.class);
+        mainIntent.putExtra("id","1");
+        this.startActivity(mainIntent);
+        this.finish();
     }
 
     @Override
