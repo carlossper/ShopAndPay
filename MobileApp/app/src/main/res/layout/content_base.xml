@@ -8,4 +8,115 @@
     tools:context="com.feup.ei12078.shopandpay.BaseActivity"
     tools:showIn="@layout/activity_base">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="User!"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Welcome"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/tableLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/base_product_button "
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_margin="4dp"
+                android:background="@color/colorStrongOrange"
+                android:drawableTop="@mipmap/ic_launcher"
+                android:gravity="bottom|center"
+                android:paddingBottom="8dp"
+                android:paddingTop="40dp"
+                android:text="Our Products"
+                android:textColor="@android:color/background_light"
+                android:textColorHighlight="@android:color/background_light"
+                android:textColorHint="@android:color/background_light" />
+
+
+            <Button
+                android:id="@+id/base_cart_button"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_margin="4dp"
+                android:background="@color/colorlightBlue"
+                android:drawableTop="@mipmap/ic_launcher"
+                android:gravity="bottom|center"
+                android:paddingBottom="8dp"
+                android:paddingTop="40dp"
+                android:text="Shopping Cart"
+                android:textColor="@android:color/background_light"
+                android:textColorHighlight="@android:color/background_light"
+                android:textColorHint="@android:color/background_light" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/base_invoices_button"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_margin="4dp"
+                android:background="@android:color/holo_green_light"
+                android:gravity="bottom|center"
+                android:paddingBottom="8dp"
+                android:paddingTop="40dp"
+                android:text="My Invoices"
+                android:textColor="@android:color/background_light"
+                android:textColorHighlight="@android:color/background_light"
+                android:textColorHint="@android:color/background_light"
+                android:drawableTop="@mipmap/ic_launcher"
+                />
+
+
+            <Button
+                android:id="@+id/base_scan_button"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_margin="4dp"
+                android:background="@color/colorlightOrange"
+                android:gravity="bottom|center"
+                android:paddingBottom="8dp"
+                android:paddingTop="40dp"
+                android:text="Scan Product"
+                android:textColor="@android:color/background_light"
+                android:textColorHighlight="@android:color/background_light"
+                android:textColorHint="@android:color/background_light"
+                android:drawableTop="@mipmap/ic_launcher"
+                />
+        </TableRow>
+    </TableLayout>
+
 </android.support.constraint.ConstraintLayout>
