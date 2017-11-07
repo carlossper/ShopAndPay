@@ -261,6 +261,41 @@ def user_invoices(request):
 
 
 @csrf_exempt
+def cart_list(request):
+    """
+    Retrieve, update or delete a product.
+    """
+
+    if request.method == 'GET':
+        if request.user.is_authenticated():
+            productList = CartProduct.objects.filter(user=request.user.id)
+            #data = serializers.serialize('json', products)
+
+            data = []
+            for val in productList:
+                dict = {}
+                product = Product.objects.get(id=val.product.id)
+
+                dict['id'] = product.id
+                dict['image_url'] = product.image_url
+                dict['name'] = product.name
+                dict['price'] = product.price
+                dict['brand'] = product.brand.name
+                dict['category'] = product.category.name
+
+                data.append(dict)
+
+            data = json.dumps(data)
+
+            return HttpResponse(data, "application/json")
+        else:
+            return HttpResponse(status=404)
+
+
+
+
+
+@csrf_exempt
 def invoice(request, pk):
 
     if request.method == 'GET':
