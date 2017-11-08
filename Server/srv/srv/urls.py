@@ -55,5 +55,6 @@ urlpatterns = [
 
     url(r'^cart-list/$', views.cart_list),
     url(r'^cart-details/(?P<pk>[0-9]+)/$', views.cart_detail),
+    url(r'^product-details/(?P<pk>[0-9]+)/$', views.product_detail),
 
 ]

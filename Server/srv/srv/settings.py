@@ -74,6 +74,7 @@ MIDDLEWARE_CLASSES = [
 ]
 
 ROOT_URLCONF = 'srv.urls'
+#APPEND_SLASH = True
 
 TEMPLATES = [
     {

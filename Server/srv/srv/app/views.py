@@ -8,6 +8,13 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from serializers import *
 from models import *
+from rest_framework.permissions import IsAuthenticated
+
+from rest_framework.decorators import api_view, permission_classes
+
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.views import APIView
+from rest_framework import authentication, permissions
 
 from  validators import *
 
@@ -111,11 +118,13 @@ def product_list(request):
         return JsonResponse(serializer.errors, status=400)
 
 
+"""
 @csrf_exempt
 def product_detail(request, pk):
-    """
-    Retrieve, update or delete a product.
-    """
+"""
+   # Retrieve, update or delete a product.
+"""
+
     try:
         product = Product.objects.get(pk=pk)
     except Product.DoesNotExist:
@@ -137,7 +146,42 @@ def product_detail(request, pk):
         product.delete()
         return HttpResponse(status=204)
 
+"""
 
+@csrf_exempt
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+def product_detail(request, pk):
+    authentication_classes = (TokenAuthentication,)
+
+    if request.method == 'GET':
+        if request.user.is_authenticated:
+            product = Product.objects.get(id=pk)
+            #data = serializers.serialize('json', products)
+            #data = []
+            dict = {}
+
+            dict['id'] = product.id
+            dict['image_url'] = product.image_url
+            dict['name'] = product.name
+            dict['description'] = product.description
+            dict['price'] = product.price
+            dict['brand'] = product.brand.name
+            dict['category'] = product.category.name
+
+            #data.append(dict)
+
+            dict = json.dumps(dict)
+
+            print pk
+            print request.user
+            print dict
+
+            return HttpResponse(dict, "application/json")
+        else:
+            print pk
+            print request.user
+            return HttpResponse(status=403)
 
 
 
@@ -147,10 +191,10 @@ def product_detail(request, pk):
 
 
 class ManageCartViewSet(mixins.CreateModelMixin,
-                  #mixins.RetrieveModelMixin,
+                  mixins.RetrieveModelMixin,
                   #mixins.UpdateModelMixin,
                   mixins.DestroyModelMixin,
-                  #mixins.ListModelMixin,
+                  mixins.ListModelMixin,
                   viewsets.GenericViewSet):
     """
     This viewset provides `create` and `destroy` actions.
@@ -261,10 +305,14 @@ def user_invoices(request):
 
 
 @csrf_exempt
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
 def cart_list(request):
     """
     Retrieve, update or delete a product.
     """
+    #permission_classes = (AllowAny,)
+
 
     if request.method == 'GET':
         if request.user.is_authenticated():
@@ -289,9 +337,41 @@ def cart_list(request):
 
             return HttpResponse(data, "application/json")
         else:
-            return HttpResponse(status=404)
+            return HttpResponse(status=402)
 
 
+class ListCart(APIView):
+    """
+    View to list all users in the system.
+
+    * Requires token authentication.
+    * Only admin users are able to access this view.
+    """
+    authentication_classes = (authentication.TokenAuthentication,)
+    #permission_classes = (permissions.IsAdminUser,)
+
+    def get(self, request, format=None):
+        """
+        Return a list of all users.
+        """
+        productList = CartProduct.objects.filter(user=request.user.id)
+        data = []
+        for val in productList:
+            dict = {}
+            product = Product.objects.get(id=val.product.id)
+
+            dict['id'] = product.id
+            dict['image_url'] = product.image_url
+            dict['name'] = product.name
+            dict['price'] = product.price
+            dict['brand'] = product.brand.name
+            dict['category'] = product.category.name
+
+            data.append(dict)
+
+        data = json.dumps(data)
+
+        return HttpResponse(data, "application/json")
 
 
 
