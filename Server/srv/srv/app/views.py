@@ -16,6 +16,8 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.views import APIView
 from rest_framework import authentication, permissions
 
+import datetime
+
 from  validators import *
 
 from permissions import *
@@ -41,37 +43,24 @@ import json
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
     permission_classes = [AllowAny]
-
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
 
 class BrandViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
     permission_classes = [AllowAny]
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
     permission_classes = [AllowAny]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
     permission_classes = [AllowAny]
     queryset = Profile.objects.all()
     serializer_class = UserSerializer
@@ -80,9 +69,6 @@ class ProfileViewSet(viewsets.ModelViewSet):
 
 
 class ProductViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
     permission_classes = [AllowAny]
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -90,9 +76,6 @@ class ProductViewSet(viewsets.ModelViewSet):
 
 
 class InvoiceProductViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
     permission_classes = [AllowAny]
     queryset = InvoiceProduct.objects.all()
     serializer_class = InvoiceProductSerializer
@@ -101,9 +84,6 @@ class InvoiceProductViewSet(viewsets.ModelViewSet):
 
 @csrf_exempt
 def product_list(request):
-    """
-    List all products, or create a new product.
-    """
     if request.method == 'GET':
         snippets = Product.objects.all()
         serializer = ProductSerializer(snippets, many=True)
@@ -118,35 +98,6 @@ def product_list(request):
         return JsonResponse(serializer.errors, status=400)
 
 
-"""
-@csrf_exempt
-def product_detail(request, pk):
-"""
-   # Retrieve, update or delete a product.
-"""
-
-    try:
-        product = Product.objects.get(pk=pk)
-    except Product.DoesNotExist:
-        return HttpResponse(status=404)
-
-    if request.method == 'GET':
-        serializer = ProductSerializer(product)
-        return JsonResponse(serializer.data)
-
-    elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = ProductSerializer(product, data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=400)
-
-    elif request.method == 'DELETE':
-        product.delete()
-        return HttpResponse(status=204)
-
-"""
 
 @csrf_exempt
 @api_view(['GET'])
@@ -157,8 +108,6 @@ def product_detail(request, pk):
     if request.method == 'GET':
         if request.user.is_authenticated:
             product = Product.objects.get(id=pk)
-            #data = serializers.serialize('json', products)
-            #data = []
             dict = {}
 
             dict['id'] = product.id
@@ -168,8 +117,6 @@ def product_detail(request, pk):
             dict['price'] = product.price
             dict['brand'] = product.brand.name
             dict['category'] = product.category.name
-
-            #data.append(dict)
 
             dict = json.dumps(dict)
 
@@ -215,24 +162,10 @@ class ManageCartViewSet(mixins.CreateModelMixin,
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
 
-
-
-
-
-
-
-
-
-
-
 @csrf_exempt
 @api_view(['POST'])
 @permission_classes((IsAuthenticated, ))
 def process_payment(request):
-    """
-    List all code snippets, or create a new snippet.
-    """
-
     if request.method == 'POST':
         data = JSONParser().parse(request)
 
@@ -257,20 +190,8 @@ def process_payment(request):
 
 
 
-        #data.set('user', request.user)
-        #serializer = CartProductSerializer(data=data)
-        #if serializer.is_valid():
-        #    serializer.save()
-        #    return JsonResponse(serializer.data, status=201)
-        return HttpResponse(status=200)
-
-
-
 @csrf_exempt
 def cart_detail(request, pk):
-    """
-         Retrieve, update or delete a code snippet.
-    """
     try:
         product = CartProduct.objects.get(pk=pk)
     except Product.DoesNotExist:
@@ -293,10 +214,28 @@ def user_invoices(request):
 
     if request.method == 'GET':
         if request.user.is_authenticated():
-            invoice = Invoice.objects.filter(user=request.user.id)
-            data = serializers.serialize('json', invoice)
+            invoices = Invoice.objects.filter(user=request.user.id)
+
+            data = []
+            for val in invoices:
+                dict = {}
+                products = InvoiceProduct.objects.filter(invoice=val.id)
+
+                total = 0
+
+                for prod in products:
+                    total = total + prod.price
+
+                dict['id'] = val.id
+                dict['price'] = total
+                dict['created'] = val.created.isoformat()
+
+                data.append(dict)
+
+            data = json.dumps(data)
 
             return HttpResponse(data, "application/json")
+
         else:
             return HttpResponse(status=404)
 
@@ -306,17 +245,10 @@ def user_invoices(request):
 @api_view(['GET'])
 @permission_classes((IsAuthenticated, ))
 def cart_list(request):
-    """
-    Retrieve, update or delete a product.
-    """
-    #permission_classes = (AllowAny,)
-
 
     if request.method == 'GET':
         if request.user.is_authenticated():
             productList = CartProduct.objects.filter(user=request.user.id)
-            #data = serializers.serialize('json', products)
-
             data = []
             for val in productList:
                 dict = {}
@@ -340,19 +272,9 @@ def cart_list(request):
 
 
 class ListCart(APIView):
-    """
-    View to list all users in the system.
-
-    * Requires token authentication.
-    * Only admin users are able to access this view.
-    """
     authentication_classes = (authentication.TokenAuthentication,)
-    #permission_classes = (permissions.IsAdminUser,)
 
     def get(self, request, format=None):
-        """
-        Return a list of all users.
-        """
         productList = CartProduct.objects.filter(user=request.user.id)
         data = []
         for val in productList:

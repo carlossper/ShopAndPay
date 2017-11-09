@@ -33,7 +33,7 @@ class Product(models.Model):
     price = models.FloatField(blank=False)
 
     class Meta:
-        ordering = ('created',)
+        ordering = ('-created',)
 
 
 
@@ -72,7 +72,7 @@ class CartProduct(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ('created',)
+        ordering = ('-created',)
 
 
 
@@ -87,7 +87,7 @@ class Invoice(models.Model):
     user = models.ForeignKey('auth.User', related_name='invoice', on_delete=models.CASCADE, default=1)
 
     class Meta:
-        ordering = ('created',)
+        ordering = ('-created',)
 
 
 
@@ -99,4 +99,4 @@ class InvoiceProduct(models.Model):
 
 
     class Meta:
-        ordering = ('created',)
+        ordering = ('-created',)
