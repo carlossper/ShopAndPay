@@ -330,6 +330,7 @@ def cart_list(request):
                 dict['price'] = product.price
                 dict['brand'] = product.brand.name
                 dict['category'] = product.category.name
+                dict['cpid'] = val.id
 
                 data.append(dict)
 

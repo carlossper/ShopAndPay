@@ -37,6 +37,13 @@ public class BaseActivity extends AppCompatActivity {
             }
         });
 
+        Button mCartButton = (Button) findViewById(R.id.base_cart_button);
+        mCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                shoppingCartRedirect();
+            }
+        });
 /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +61,13 @@ public class BaseActivity extends AppCompatActivity {
         Intent mainIntent = new Intent(this, BarcodeCaptureActivity.class);
         this.startActivity(mainIntent);
         this.finish();
+    }
+
+    private void shoppingCartRedirect(){
+        Log.i("TAG","Cart button clicked");
+        Intent mainIntent = new Intent(this, ShoppingCartActivity.class);
+        this.startActivity(mainIntent);
+        //this.finish();
     }
 
     private void productRedirect(){

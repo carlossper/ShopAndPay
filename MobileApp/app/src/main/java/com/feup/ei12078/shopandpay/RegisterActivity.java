@@ -266,7 +266,6 @@ public class RegisterActivity extends AppCompatActivity {
                             //Log.d("TAG2", "Token: " + key);
 
                             SharedPreferences.Editor editor = getSharedPreferences(getString(R.string.user_token), MODE_PRIVATE).edit();
-
                             editor.putString(getString(R.string.user_token), key);
                             editor.apply();
 

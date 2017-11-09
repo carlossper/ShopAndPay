@@ -52,6 +52,8 @@ public class ProductActivity extends AppCompatActivity {
     private String token;
 
     private AddProductToCartTask mAddProductToCartTask = null;
+    private RequestQueue queue;
+
 
 
     @Override
@@ -67,8 +69,10 @@ public class ProductActivity extends AppCompatActivity {
 
         productId = intent.getStringExtra("id");
 
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url = AppUtils.baseUrl + "products/" + productId;
+        String url = AppUtils.baseUrl + "product-details/" + productId + "/";
+
+        if(queue == null)
+            queue = Volley.newRequestQueue(this);
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
@@ -141,6 +145,8 @@ public class ProductActivity extends AppCompatActivity {
 
 
 
+
+
         Button mAddButton = (Button) findViewById(R.id.product_add_button);
         mAddButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -171,8 +177,6 @@ public class ProductActivity extends AppCompatActivity {
             mAddProductToCartTask.execute((Void) null);
         }
     }
-
-
 
     public class AddProductToCartTask extends AsyncTask<Void, Void, Boolean> {
 

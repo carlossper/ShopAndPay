@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.feup.ei12078.shopandpay.ShoppingCart">
+    tools:context="com.feup.ei12078.shopandpay.ShoppingCartActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

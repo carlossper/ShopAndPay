@@ -35,7 +35,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SearchCategoryActivity" />
         <activity
-            android:name=".ShoppingCart"
+            android:name=".ShoppingCartActivity"
             android:label="@string/title_activity_shopping_cart"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ListInvoicesActivity" />
