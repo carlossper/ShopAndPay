@@ -226,6 +226,8 @@ class ManageCartViewSet(mixins.CreateModelMixin,
 
 
 @csrf_exempt
+@api_view(['POST'])
+@permission_classes((IsAuthenticated, ))
 def process_payment(request):
     """
     List all code snippets, or create a new snippet.
@@ -233,17 +235,10 @@ def process_payment(request):
 
     if request.method == 'POST':
         data = JSONParser().parse(request)
-        print "#################################"
-        print "Process Payment"
-        print "#################################"
-        if 'product' in data:
-            print data['product']
 
         if 'card-number' in data:
             if is_valid_card_number(data['card-number']):
                 queryset = CartProduct.objects.filter(user=request.user.id)
-                data2 = serializers.serialize('json', queryset)
-                serializer_class = CartProductSerializer
 
                 invoice = Invoice(user=request.user)
                 invoice.save()
@@ -251,9 +246,10 @@ def process_payment(request):
                 for data in queryset:
                     invoiceProduct = InvoiceProduct(invoice=invoice, product=data.product, price=data.product.price)
                     invoiceProduct.save()
-                    #print data.created
 
-                return HttpResponse(data2, "application/json")
+                queryset.delete()
+
+                return HttpResponse("Ok", status=200)
             else:
                 return HttpResponse("Invalid Card Number", status=400)
         else:
@@ -288,6 +284,8 @@ def cart_detail(request, pk):
 
 
 @csrf_exempt
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
 def user_invoices(request):
     """
     Retrieve, update or delete a product.

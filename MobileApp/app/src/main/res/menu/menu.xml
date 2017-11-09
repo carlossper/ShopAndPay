@@ -5,8 +5,8 @@
     tools:context="com.feup.ei12078.shopandpay.BaseActivity">
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_logout"
         android:orderInCategory="100"
-        android:title="Settings"
+        android:title="Logout"
         app:showAsAction="never" />
 </menu>
