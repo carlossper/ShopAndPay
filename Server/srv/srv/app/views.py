@@ -173,6 +173,9 @@ def process_payment(request):
             if is_valid_card_number(data['card-number']):
                 queryset = CartProduct.objects.filter(user=request.user.id)
 
+                if len(queryset) == 0:
+                    return HttpResponse("No products added", status=200)
+
                 invoice = Invoice(user=request.user)
                 invoice.save()
 
@@ -297,6 +300,8 @@ class ListCart(APIView):
 
 
 @csrf_exempt
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
 def invoice(request, pk):
 
     if request.method == 'GET':
@@ -310,7 +315,7 @@ def invoice(request, pk):
                 dict['id'] = product.id
                 dict['image_url'] = product.image_url
                 dict['name'] = product.name
-                dict['price'] = product.price
+                dict['price'] = val.price
                 dict['brand_name'] = product.brand.name
 
                 data.append(dict)
@@ -318,3 +323,5 @@ def invoice(request, pk):
             data = json.dumps(data)
 
             return HttpResponse(data, "application/json")
+        else:
+            return HttpResponse(status=401)
