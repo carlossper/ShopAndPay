@@ -72,6 +72,14 @@ public class BaseActivity extends AppCompatActivity {
                 shoppingCartRedirect();
             }
         });
+
+        Button mInvoiceButton = (Button) findViewById(R.id.base_invoices_button);
+        mInvoiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                invoiceRedirect();
+            }
+        });
 /*
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +101,13 @@ public class BaseActivity extends AppCompatActivity {
     private void shoppingCartRedirect(){
         Log.i("TAG","Cart button clicked");
         Intent mainIntent = new Intent(this, ShoppingCartActivity.class);
+        this.startActivity(mainIntent);
+    }
+
+
+    private void invoiceRedirect(){
+        Log.i("TAG","List Invoice button clicked");
+        Intent mainIntent = new Intent(this, ListInvoicesActivity.class);
         this.startActivity(mainIntent);
     }
 
