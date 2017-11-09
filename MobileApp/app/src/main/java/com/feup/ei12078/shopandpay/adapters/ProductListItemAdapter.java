@@ -47,13 +47,21 @@ public class ProductListItemAdapter extends BaseAdapter {
     private final Activity act;
     private RemoveProductFromCartTask mRemoveProductFromCartTask = null;
     private String token;
+    private TextView totalPriceView;
 
 
-    public ProductListItemAdapter(List<Product> products, Activity act) {
+    public ProductListItemAdapter(List<Product> products, Activity act, TextView totalPriceView) {
         this.products = products;
         this.act = act;
+        this.totalPriceView = totalPriceView;
         SharedPreferences sharedPref = act.getSharedPreferences(act.getString(R.string.user_token), Context.MODE_PRIVATE);
         token = sharedPref.getString(act.getString(R.string.user_token), null);
+
+        double total = 0;
+        for(int i = 0 ; i < products.size() ; i++){
+            total += Double.parseDouble(products.get(i).getPrice());
+        }
+        totalPriceView.setText(""+total+" €");
 
     }
 
@@ -71,6 +79,18 @@ public class ProductListItemAdapter extends BaseAdapter {
     @Override
     public long getItemId(int position) {
         return 0;
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        double total = 0;
+        for(int i = 0 ; i < products.size() ; i++){
+            total += Double.parseDouble(products.get(i).getPrice());
+        }
+        totalPriceView.setText(""+total+" €");
+
+
+        super.notifyDataSetChanged();
     }
 
     @Override
@@ -92,6 +112,7 @@ public class ProductListItemAdapter extends BaseAdapter {
         category.setText(product.getCategory());
         price.setText(product.getPrice() + " €");
         Picasso.with(act.getApplicationContext()).load(product.getImage_url()).into(image);
+
 
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override

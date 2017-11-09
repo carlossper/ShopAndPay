@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -36,6 +37,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
 
     private String token;
     private RequestQueue queue;
+    TextView totalPriceView;
 
 
     @Override
@@ -44,6 +46,8 @@ public class ShoppingCartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_shopping_cart);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        totalPriceView = (TextView) findViewById(R.id.shopping_cart_total_price);
 
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.user_token), Context.MODE_PRIVATE);
         token = sharedPref.getString(getString(R.string.user_token), null);
@@ -55,7 +59,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         if(queue == null)
             queue = Volley.newRequestQueue(this);
 
-        // Request a string response from the provided URL.
+        //Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -76,36 +80,10 @@ public class ShoppingCartActivity extends AppCompatActivity {
                                 p.setPrice(jsonobject.getString("price"));
                                 productList.add(p);
                             }
-                            ProductListItemAdapter adapter = new ProductListItemAdapter(productList, ShoppingCartActivity.this);
+                            ProductListItemAdapter adapter = new ProductListItemAdapter(productList, ShoppingCartActivity.this, totalPriceView);
                             cartListView.setAdapter(adapter);
-                            /*
-                            //JSONObject json = new JSONObject(response);
-                            productName = json.getString("name");
-                            productDescription = json.getString("description");
-                            productBrand = json.getString("brand");
-                            productCategory = json.getString("category");
-                            productURL = json.getString("image_url");
-                            productPrice = json.getString("price") + " €";
 
 
-                            mNameTextView = (TextView) findViewById(R.id.product_product_name);
-                            mNameTextView.setText(productName);
-
-                            mPriceTextView = (TextView) findViewById(R.id.product_product_price);
-                            mPriceTextView.setText(productPrice);
-
-                            mDescriptionTextView = (TextView) findViewById(R.id.product_product_description);
-                            mDescriptionTextView.setText(productDescription);
-
-                            mBrandTextView = (TextView) findViewById(R.id.product_product_brand);
-                            mBrandTextView.setText(productBrand);
-
-                            mCategoryTextView = (TextView) findViewById(R.id.product_product_category);
-                            mCategoryTextView.setText(productCategory);
-
-                            mProductImageView = (ImageView) findViewById(R.id.product_product_image);
-                            Picasso.with(getApplicationContext()).load(productURL).into(mProductImageView);
-*/
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -141,11 +119,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
         };
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
-
-
-        //ProductListItemAdapter adapter = new ProductListItemAdapter(productList, this);
-       // cartListView.setAdapter(adapter);
-
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
