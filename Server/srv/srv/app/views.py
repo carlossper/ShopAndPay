@@ -325,3 +325,35 @@ def invoice(request, pk):
             return HttpResponse(data, "application/json")
         else:
             return HttpResponse(status=401)
+
+
+
+
+@csrf_exempt
+@api_view(['GET'])
+@permission_classes((IsAuthenticated, ))
+def products_by_category(request, pk):
+
+    if request.method == 'GET':
+        if request.user.is_authenticated():
+            productList = Product.objects.filter(category=pk)
+            #print product_list
+            data = []
+
+            for val in productList:
+                dict = {}
+
+                dict['id'] = val.id
+                dict['image_url'] = val.image_url
+                dict['name'] = val.name
+                dict['price'] = val.price
+                dict['brand'] = val.brand.name
+                dict['category'] = val.category.name
+
+                data.append(dict)
+
+            data = json.dumps(data)
+
+            return HttpResponse(data, "application/json")
+        else:
+            return HttpResponse(status=402)
