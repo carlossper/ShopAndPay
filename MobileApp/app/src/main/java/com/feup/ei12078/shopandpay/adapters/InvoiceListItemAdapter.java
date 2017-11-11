@@ -1,8 +1,6 @@
 package com.feup.ei12078.shopandpay.adapters;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -21,14 +19,11 @@ public class InvoiceListItemAdapter extends BaseAdapter {
 
     private final List<Invoice> invoices;
     private final Activity act;
-    private String token;
 
 
     public InvoiceListItemAdapter(List<Invoice> invoices, Activity act) {
         this.invoices = invoices;
         this.act = act;
-        SharedPreferences sharedPref = act.getSharedPreferences(act.getString(R.string.user_token), Context.MODE_PRIVATE);
-        token = sharedPref.getString(act.getString(R.string.user_token), null);
     }
 
 

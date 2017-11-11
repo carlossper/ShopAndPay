@@ -113,7 +113,7 @@ public class BaseActivity extends AppCompatActivity {
 
     private void productRedirect(){
         Log.i("TAG","Product button clicked");
-        Intent mainIntent = new Intent(this, ProductActivity.class);
+        Intent mainIntent = new Intent(this, SearchCategoryActivity.class);
         mainIntent.putExtra("id","1");
         this.startActivity(mainIntent);
 
