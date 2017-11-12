@@ -40,7 +40,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ListInvoicesActivity" />
         <activity android:name=".ProductActivity" />
-        <activity android:name=".barcode.BarcodeCaptureActivity"></activity>
+        <activity android:name=".barcode.BarcodeCaptureActivity" />
+        <activity android:name=".ProductListActivity"></activity>
     </application>
 
 </manifest>

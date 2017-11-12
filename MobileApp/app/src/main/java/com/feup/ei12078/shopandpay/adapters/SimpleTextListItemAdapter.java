@@ -32,8 +32,8 @@ public class SimpleTextListItemAdapter extends BaseAdapter{
     }
 
     @Override
-    public Object getItem(int position) {
-        return null;
+    public String getItem(int position) {
+        return cats.get(position).getId();
     }
 
     @Override

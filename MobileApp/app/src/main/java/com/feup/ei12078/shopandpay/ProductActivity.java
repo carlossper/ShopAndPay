@@ -69,6 +69,7 @@ public class ProductActivity extends AppCompatActivity {
 
         productId = intent.getStringExtra("id");
 
+
         String url = AppUtils.baseUrl + "product-details/" + productId + "/";
 
         if(queue == null)

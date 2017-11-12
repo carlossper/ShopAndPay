@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
@@ -41,8 +43,6 @@ public class SearchCategoryActivity extends AppCompatActivity {
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.user_token), Context.MODE_PRIVATE);
         token = sharedPref.getString(getString(R.string.user_token), null);
 
-
-        Intent intent = getIntent();
         String url = AppUtils.baseUrl + "categories/";
 
         if(queue == null)
@@ -68,6 +68,19 @@ public class SearchCategoryActivity extends AppCompatActivity {
                             }
                             SimpleTextListItemAdapter adapter = new SimpleTextListItemAdapter(categoryList, SearchCategoryActivity.this);
                             categoryListView.setAdapter(adapter);
+
+                            categoryListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+                                @Override
+                                public void onItemClick(AdapterView<?>adapter, View v, int position, long id){
+                                    String catId = (String) adapter.getItemAtPosition(position);
+
+                                    Intent intent = new Intent(SearchCategoryActivity.this, ProductListActivity.class);
+                                    intent.putExtra("catId", catId);
+
+                                    startActivity(intent);
+                                }
+                            });
 
 
                         } catch (JSONException e) {
@@ -105,6 +118,9 @@ public class SearchCategoryActivity extends AppCompatActivity {
         };
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
+
+
+
 
 
     }
