@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.AuthFailureError;
@@ -66,6 +68,19 @@ public class ListInvoicesActivity extends AppCompatActivity {
                             }
                             InvoiceListItemAdapter adapter = new InvoiceListItemAdapter(invoiceList, ListInvoicesActivity.this);
                             invoiceListView.setAdapter(adapter);
+
+                            invoiceListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+                                @Override
+                                public void onItemClick(AdapterView<?>adapter, View v, int position, long id){
+                                    String invId = (String) adapter.getItemAtPosition(position);
+
+                                    Intent intent = new Intent(ListInvoicesActivity.this, InvoiceQrActivity.class);
+                                    intent.putExtra("id", invId);
+
+                                    startActivity(intent);
+                                }
+                            });
 
 
                         } catch (JSONException e) {

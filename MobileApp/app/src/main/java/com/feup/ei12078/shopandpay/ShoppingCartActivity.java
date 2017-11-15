@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -38,6 +37,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
     private String token;
     private RequestQueue queue;
     TextView totalPriceView;
+    private CartProductListItemAdapter adapter;
 
 
     @Override
@@ -80,7 +80,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
                                 p.setPrice(jsonobject.getString("price"));
                                 productList.add(p);
                             }
-                            CartProductListItemAdapter adapter = new CartProductListItemAdapter(productList, ShoppingCartActivity.this, totalPriceView);
+                            adapter = new CartProductListItemAdapter(productList, ShoppingCartActivity.this, totalPriceView);
                             cartListView.setAdapter(adapter);
 
 
@@ -127,8 +127,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent mainIntent = new Intent(getApplicationContext(), PaymentActivity.class);
+                mainIntent.putExtra("total",totalPriceView.getText());
+                startActivity(mainIntent);
             }
         });
     }

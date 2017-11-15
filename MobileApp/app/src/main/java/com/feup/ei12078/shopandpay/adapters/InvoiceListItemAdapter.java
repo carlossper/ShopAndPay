@@ -34,7 +34,7 @@ public class InvoiceListItemAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return invoices.get(position).getId();
     }
 
     @Override

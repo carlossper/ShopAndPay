@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -44,6 +45,12 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("username");
+
+        TextView mUsernameTextView = (TextView) findViewById(R.id.base_user_text_view);
+        mUsernameTextView.setText(username);
 
         SharedPreferences sharedPref = this.getSharedPreferences(getString(R.string.user_token), Context.MODE_PRIVATE);
         token = sharedPref.getString(getString(R.string.user_token), null);
@@ -80,16 +87,6 @@ public class BaseActivity extends AppCompatActivity {
                 invoiceRedirect();
             }
         });
-/*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-*/
     }
 
     private void cameraRedirect(){
@@ -230,6 +227,10 @@ public class BaseActivity extends AppCompatActivity {
             mLogoutTask = null;
 
             if (success) {
+                SharedPreferences.Editor editor = getSharedPreferences(getString(R.string.user_token), MODE_PRIVATE).edit();
+                editor.putString(getString(R.string.user_token), "");
+                editor.apply();
+
                 Intent mainIntent = new Intent(BaseActivity.this, SplashActivity.class);
                 startActivity(mainIntent);
                 BaseActivity.this.finish();

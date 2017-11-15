@@ -9,7 +9,7 @@
     tools:showIn="@layout/activity_base">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/base_user_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -42,7 +42,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
+        app:layout_constraintTop_toBottomOf="@+id/base_user_text_view">
 
         <TableRow
             android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                 android:layout_height="160dp"
                 android:layout_margin="4dp"
                 android:background="@color/colorStrongOrange"
-                android:drawableTop="@mipmap/ic_launcher"
+                android:drawableTop="@drawable/products_64"
                 android:gravity="bottom|center"
                 android:paddingBottom="8dp"
                 android:paddingTop="40dp"
@@ -70,7 +70,7 @@
                 android:layout_height="160dp"
                 android:layout_margin="4dp"
                 android:background="@color/colorlightBlue"
-                android:drawableTop="@mipmap/ic_launcher"
+                android:drawableTop="@drawable/cart_64"
                 android:gravity="bottom|center"
                 android:paddingBottom="8dp"
                 android:paddingTop="40dp"
@@ -90,15 +90,14 @@
                 android:layout_height="160dp"
                 android:layout_margin="4dp"
                 android:background="@android:color/holo_green_light"
+                android:drawableTop="@drawable/invoice_64"
                 android:gravity="bottom|center"
                 android:paddingBottom="8dp"
                 android:paddingTop="40dp"
                 android:text="My Invoices"
                 android:textColor="@android:color/background_light"
                 android:textColorHighlight="@android:color/background_light"
-                android:textColorHint="@android:color/background_light"
-                android:drawableTop="@mipmap/ic_launcher"
-                />
+                android:textColorHint="@android:color/background_light" />
 
 
             <Button
@@ -107,7 +106,7 @@
                 android:layout_height="160dp"
                 android:layout_margin="4dp"
                 android:background="@color/colorlightOrange"
-                android:drawableTop="@mipmap/ic_launcher"
+                android:drawableTop="@drawable/qr_64"
                 android:gravity="bottom|center"
                 android:paddingBottom="8dp"
                 android:paddingTop="40dp"
