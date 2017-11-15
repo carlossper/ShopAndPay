@@ -11,6 +11,7 @@
     tools:context="com.feup.ei12078.shopandpay.LoginActivity">
 
     <!-- Login progress -->
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -22,7 +23,7 @@
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/email_login_form"
@@ -83,4 +84,12 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/invoice_camera_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Invoice Reader" />
+
 </LinearLayout>

@@ -26,6 +26,8 @@ public class ProductListItemAdapter extends BaseAdapter {
     private final Activity act;
     private String token;
 
+    String totalPrice;
+
 
     public ProductListItemAdapter(List<Product> products, Activity act) {
         this.products = products;
@@ -33,7 +35,14 @@ public class ProductListItemAdapter extends BaseAdapter {
         SharedPreferences sharedPref = act.getSharedPreferences(act.getString(R.string.user_token), Context.MODE_PRIVATE);
         token = sharedPref.getString(act.getString(R.string.user_token), null);
 
+        double total = 0;
+        for(int i = 0 ; i < products.size() ; i++){
+            total += Double.parseDouble(products.get(i).getPrice());
+        }
+        totalPrice = ""+total+" €";
+
     }
+
 
 
     @Override
@@ -74,5 +83,9 @@ public class ProductListItemAdapter extends BaseAdapter {
 
         return view;
 
+    }
+
+    public String getPrice() {
+        return totalPrice;
     }
 }

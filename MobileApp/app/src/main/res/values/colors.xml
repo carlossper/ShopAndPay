@@ -8,4 +8,6 @@
     <color name="colorlightBlue">#22a9dd</color>
     <color name="colorlightOrange">#ffbe1e</color>
     <color name="colorStrongOrange">#ff451e</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>

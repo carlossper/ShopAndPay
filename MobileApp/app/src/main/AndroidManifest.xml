@@ -43,7 +43,13 @@
         <activity android:name=".barcode.BarcodeCaptureActivity" />
         <activity android:name=".ProductListActivity" />
         <activity android:name=".PaymentActivity" />
-        <activity android:name=".InvoiceQrActivity"></activity>
+        <activity android:name=".InvoiceQrActivity" />
+        <activity
+            android:name=".barcode.InvoiceCaptureActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_invoice_capture"
+            android:theme="@style/FullscreenTheme" />
+        <activity android:name=".DetailedInvoiceActivity"></activity>
     </application>
 
 </manifest>

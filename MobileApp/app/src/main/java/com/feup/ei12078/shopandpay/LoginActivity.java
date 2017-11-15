@@ -31,6 +31,7 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.feup.ei12078.shopandpay.barcode.InvoiceCaptureActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -94,6 +95,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        Button mInvoiceButton = (Button) findViewById(R.id.invoice_camera_button);
+        mInvoiceButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                cameraRedirect();
+            }
+        });
+
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
@@ -103,7 +112,11 @@ public class LoginActivity extends AppCompatActivity {
         Log.i("TAG","Register button clicked");
         Intent mainIntent = new Intent(this, RegisterActivity.class);
         this.startActivity(mainIntent);
-        this.finish();
+    }
+
+    private void cameraRedirect() {
+        Intent mainIntent = new Intent(this, InvoiceCaptureActivity.class);
+        this.startActivity(mainIntent);
     }
 
     /**

@@ -301,30 +301,29 @@ class ListCart(APIView):
 
 @csrf_exempt
 @api_view(['GET'])
-@permission_classes((IsAuthenticated, ))
+@permission_classes((AllowAny, ))
 def invoice(request, pk):
-
     if request.method == 'GET':
-        if request.user.is_authenticated():
-            invoice = InvoiceProduct.objects.filter(invoice=pk)
-            data = []
-            for val in invoice:
-                dict = {}
-                product = Product.objects.get(id=val.product.id)
+        invoice = InvoiceProduct.objects.filter(invoice=pk)
+        data = []
+        for val in invoice:
+            dict = {}
+            product = Product.objects.get(id=val.product.id)
 
-                dict['id'] = product.id
-                dict['image_url'] = product.image_url
-                dict['name'] = product.name
-                dict['price'] = val.price
-                dict['brand_name'] = product.brand.name
+            dict['id'] = product.id
+            dict['image_url'] = product.image_url
+            dict['name'] = product.name
+            dict['price'] = val.price
+            dict['brand_name'] = product.brand.name
+            dict['category'] = product.category.name
 
-                data.append(dict)
+            data.append(dict)
 
-            data = json.dumps(data)
+        data = json.dumps(data)
 
-            return HttpResponse(data, "application/json")
-        else:
-            return HttpResponse(status=401)
+        return HttpResponse(data, "application/json")
+    else:
+        return HttpResponse(status=401)
 
 
 
